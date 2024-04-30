@@ -1,5 +1,4 @@
 const express = require('express'); // Importamos express para crear el servidor
-require('dotenv').config(); // Para leer las variables de entorno
 const fs = require('fs'); // Para trabajar con el sistema de archivos
 const path = require('path'); // Para trabajar con rutas de archivos y directorios
 

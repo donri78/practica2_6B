@@ -11,7 +11,7 @@ const router = Router(); // Inicializamos Router
     router.get('/alumno/:id', obtenerAlumnoPorId);
 
     // Ruta de los alumnos
-    router.put('/alumno',  actualizarAlumno);
+    router.put('/alumno/:id',  actualizarAlumno);
 
     // Ruta de los alumnos
     router.post('/alumno', insertarAlumno);
