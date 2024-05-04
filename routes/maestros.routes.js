@@ -1,12 +1,15 @@
-
- const { Router } = require('express'); // Importamos Router desde express
- const { obtenerAlumnos } = require('../controllers/alumno.controller') // Importamos los métodos del controlador
+const { Router } = require('express'); // Importamos Router desde express
+ const { obtenerAlumnos, obtenerAlumnoPorId, eliminarAlumno, actualizarAlumno, insertarAlumno } = require('../controllers/alumno.controller'); // Importamos los métodos del controlador
 
 const router = Router(); // Inicializamos Router
 
     // Ruta de los alumnos
     // router.get('/alumno', obtenerAlumnos);
-    router.get ('/alumno, obtenerAlumnos');
+    router.get ('/alumno',(req , res) =>{
+        res.json({
+            msg: 'GET API'
+        });
+    });
 
     router.get ('/alumno/:id',(req , res) =>{
         res.json({

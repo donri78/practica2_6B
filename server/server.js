@@ -1,7 +1,11 @@
 const express = require('express'); // Importamos express para crear el servidor
+
 require('dotenv').config(); // Para leer las variables de entorno
 const fs = require('fs'); // Para trabajar con el sistema de archivos
 const path = require('path'); // Para trabajar con rutas de archivos y directorios
+const alumnoRoutes = require('../routes/alumno.routes');
+
+// const { patch } = require('../routes/alumno.routes');
 
 
 
@@ -24,6 +28,7 @@ class Server{
 
     middlewares(){
         // CORS - Permitir que cualquier persona haga peticiones a nuestra API
+        this.app.use(express.static('public'));
         this.app.use((req, res, next) => { // Middleware para permitir el acceso a la API
             res.header('Access-Control-Allow-Origin', '*'); // Permite el acceso a todos los dominios
             res.header('Access-Control-Allow-Headers', 'Content-Type, x-token'); // Permite el acceso a los headers
@@ -42,7 +47,7 @@ class Server{
 
             this.app.listen(this.port, () => {
                     console.log(`-----------------------------------------------------`.red);
-                    console.log('Servidor corriendo en puerto'.green, this.port.yellow, ` http://localhost:${this.port}` + this.apiPath + '/'); // Mensaje en consola
+                    console.log('Servidor corriendo en puerto'.green, this.port.yellow, `http://localhost:${this.port}` + this.apiPath + '/'); // Mensaje en consola
                     // impimir lista separada por comas de las rutas
                     console.log(`RUTAS (ENDPOINT): `.bold, this.obtenerListaDeRutas().join(', ').green);
 
@@ -50,18 +55,19 @@ class Server{
             });
         } catch (error) {
             console.log(error);
+            throw new Error('Error el iniciar el servidor'.red);
         }
     }
 
     obtenerListaDeRutas(){
         //obtener lista de todos los archivos de la carpeta routes con fs
         const routesPath = path.join(__dirname, '../routes');
-        const files = fs.readdirSync(routesPath);
+        const archivos = fs.readdirSync(routesPath);
         //recorrer nombres de archivos, eliminar .routes.js y agregar a un array
-        files.forEach((file, index) => {
-            files[index] = file.replace('.routes.js', '');
+        archivos.forEach((archivo, index) => {
+            archivos[index] = archivo.replace('.routes.js', '');
         });
-        return files;
+        return archivos;
 
     }
 }
